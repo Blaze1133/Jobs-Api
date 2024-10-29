@@ -9,19 +9,19 @@ const cors = require('cors');
 const xss = require('xss-clean')
 const rateLimiter = require('express-rate-limit')
 
-const auth = require('./middleware/authentication');
+const auth = require('../middleware/authentication');
 
 //connect db
-const connectDB = require('./db/connect');
+const connectDB = require('../db/connect');
 
 //routers
-const authRouter = require('./routes/auth');
-const jobRouter = require('./routes/jobs');
+const authRouter = require('../routes/auth');
+const jobRouter = require('../routes/jobs');
 
 
 // error handler
-const notFoundMiddleware = require('./middleware/not-found');
-const errorHandlerMiddleware = require('./middleware/error-handler');
+const notFoundMiddleware = require('../middleware/not-found');
+const errorHandlerMiddleware = require('../middleware/error-handler');
 
 app.set('trust proxy', 1);
 app.use(rateLimiter({
@@ -59,3 +59,6 @@ const start = async()=>{
 }
 
 start();
+
+const serverless = require('serverless-http'); 
+module.exports = serverless(app);
